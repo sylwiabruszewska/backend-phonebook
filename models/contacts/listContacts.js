@@ -1,15 +1,11 @@
-import path from "path";
-import { promises as fs } from "fs";
-
-const contactsPath = path.join(process.cwd(), "db", "contacts.json");
+import { readContacts } from "./readContacts.js";
 
 export const listContacts = async () => {
-  const data = await fs.readFile(contactsPath, { encoding: "utf-8" });
+  const contacts = await readContacts();
 
-  if (!data) {
+  if (!contacts) {
     throw new Error(`Not found`);
   }
 
-  const contacts = JSON.parse(data);
   return contacts;
 };
