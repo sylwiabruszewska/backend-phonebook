@@ -1,6 +1,6 @@
 import * as contactsActions from "../../models/contacts/index.js";
 
-export async function getContacts(req, res, next) {
+export const getContacts = async (req, res, next) => {
   try {
     const contacts = await contactsActions.listContacts();
 
@@ -12,4 +12,4 @@ export async function getContacts(req, res, next) {
       message: error.message,
     });
   }
-}
+};
