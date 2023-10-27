@@ -3,6 +3,7 @@ import express from "express";
 import {
   getContacts,
   getContactById,
+  postContact,
 } from "../../controllers/contacts/index.js";
 
 const router = express.Router();
@@ -11,9 +12,7 @@ router.get("/", getContacts);
 
 router.get("/:contactId", getContactById);
 
-router.post("/", async (req, res, next) => {
-  res.json({ message: "template message" });
-});
+router.post("/", postContact);
 
 router.delete("/:contactId", async (req, res, next) => {
   res.json({ message: "template message" });
