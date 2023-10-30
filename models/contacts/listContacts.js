@@ -1,4 +1,4 @@
-import { readContacts } from "./readContacts.js";
+import { readContacts } from "../../helpers/index.js";
 
 export const listContacts = async () => {
   const contacts = await readContacts();
