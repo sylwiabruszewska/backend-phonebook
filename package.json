@@ -35,6 +35,7 @@
     "#controllers/*": "./controllers/*",
     "#db/*": "./db/*",
     "#helpers/*": "./helpers/*",
+    "#middleware/*": "./middleware/*",
     "#models/*": "./models/*",
     "#routes/*": "./routes/*"
   }
