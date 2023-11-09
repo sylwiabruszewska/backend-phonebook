@@ -1,5 +1,5 @@
 import { getContactById } from "./index.js";
-import { readContacts, writeContacts } from "../../helpers/index.js";
+import { readContacts, writeContacts } from "#helpers/index.js";
 
 export const updateContact = async (contactId, body) => {
   const contacts = await readContacts();

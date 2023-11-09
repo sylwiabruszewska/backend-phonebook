@@ -1,4 +1,4 @@
-import { readContacts, writeContacts } from "../../helpers/index.js";
+import { readContacts, writeContacts } from "#helpers/index.js";
 
 export const removeContact = async (contactId) => {
   const contacts = await readContacts();

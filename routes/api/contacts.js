@@ -6,7 +6,7 @@ import {
   postContact,
   putContact,
   deleteContact,
-} from "../../controllers/contacts/index.js";
+} from "#controllers/contacts/index.js";
 
 const router = express.Router();
 

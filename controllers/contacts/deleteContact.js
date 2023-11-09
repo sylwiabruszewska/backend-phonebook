@@ -1,4 +1,4 @@
-import * as contactsActions from "../../models/contacts/index.js";
+import * as contactsActions from "#models/contacts/index.js";
 
 export const deleteContact = async (req, res, next) => {
   try {

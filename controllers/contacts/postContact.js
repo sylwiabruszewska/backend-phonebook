@@ -1,7 +1,7 @@
 import { nanoid } from "nanoid";
 
-import { contactSchema } from "../../validators/contactSchema.js";
-import * as contactsActions from "../../models/contacts/index.js";
+import { contactSchema } from "#validators/contactSchema.js";
+import * as contactsActions from "#models/contacts/index.js";
 
 export const postContact = async (req, res, next) => {
   const requiredFields = ["name", "email", "phone"];
