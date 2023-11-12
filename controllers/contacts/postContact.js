@@ -1,4 +1,5 @@
 import Contact from "#models/contact.js";
+import { contactSchema, validateData } from "#validators/index.js";
 
 export const postContact = async (req, res, next) => {
   const requiredFields = ["name", "email", "phone"];
@@ -12,11 +13,11 @@ export const postContact = async (req, res, next) => {
   }
 
   try {
-    const { error } = Contact.validate(req.body);
+    const { isValid, errorMessage } = validateData(contactSchema, req.body);
 
-    if (error) {
+    if (!isValid) {
       return res.status(400).json({
-        message: error.details[0].message,
+        message: errorMessage,
       });
     }
 
