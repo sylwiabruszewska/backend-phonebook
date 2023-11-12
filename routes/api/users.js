@@ -6,12 +6,13 @@ import {
   logoutUser,
   currentUser,
 } from "#controllers/users/index.js";
+import { authMiddleware } from "#middleware/authMiddleware.js";
 
 const router = express.Router();
 
 router.post("/signup", registerUser);
 router.post("/login", loginUser);
-router.get("/logout", logoutUser);
-router.get("/current", currentUser);
+router.get("/logout", authMiddleware, logoutUser);
+router.get("/current", authMiddleware, currentUser);
 
 export { router as usersRouter };

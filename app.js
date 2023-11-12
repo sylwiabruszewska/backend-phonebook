@@ -8,12 +8,14 @@ import {
   loggerHandler,
   corsHandler,
   bodyParserHandler,
+  passportHandler,
 } from "#middleware/index.js";
 
 dotenv.config();
 
 const app = express();
 
+passportHandler(app);
 loggerHandler(app);
 corsHandler(app);
 bodyParserHandler(app);
