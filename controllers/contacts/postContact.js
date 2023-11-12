@@ -1,7 +1,4 @@
-import { nanoid } from "nanoid";
-
-import { contactSchema } from "../../validators/contactSchema.js";
-import * as contactsActions from "../../models/contacts/index.js";
+import Contact from "#models/contact.js";
 
 export const postContact = async (req, res, next) => {
   const requiredFields = ["name", "email", "phone"];
@@ -14,21 +11,16 @@ export const postContact = async (req, res, next) => {
     }
   }
 
-  const { value, error } = contactSchema.validate(req.body);
-
-  if (error) {
-    return res.status(400).json({
-      message: error.details[0].message,
-    });
-  }
-
-  const contact = {
-    id: nanoid(),
-    ...value,
-  };
-
   try {
-    const newContact = await contactsActions.addContact(contact);
+    const { error } = Contact.validate(req.body);
+
+    if (error) {
+      return res.status(400).json({
+        message: error.details[0].message,
+      });
+    }
+
+    const newContact = await Contact.create(req.body);
 
     res.status(201).json({
       data: newContact,

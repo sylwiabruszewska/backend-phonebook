@@ -3,3 +3,4 @@ export * from "./getContactById.js";
 export * from "./postContact.js";
 export * from "./putContact.js";
 export * from "./deleteContact.js";
+export * from "./patchContactStatus.js";
