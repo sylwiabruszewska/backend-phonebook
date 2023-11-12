@@ -6,10 +6,9 @@ export const putContact = async (req, res, next) => {
   const { contactId } = params;
 
   if (Object.keys(req.body).length === 0) {
-    res.status(400).json({
+    return res.status(400).json({
       message: "missing fields",
     });
-    return;
   }
 
   try {
