@@ -20,6 +20,7 @@
     "cross-env": "7.0.3",
     "dotenv": "^16.3.1",
     "express": "4.17.1",
+    "joi": "^17.11.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.0.0",
     "morgan": "1.10.0",
@@ -42,6 +43,7 @@
     "#helpers/*": "./helpers/*",
     "#middleware/*": "./middleware/*",
     "#models/*": "./models/*",
-    "#routes/*": "./routes/*"
+    "#routes/*": "./routes/*",
+    "#validators/*": "./validators/*"
   }
 }

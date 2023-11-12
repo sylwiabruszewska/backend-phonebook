@@ -5,6 +5,7 @@ import {
   loginUser,
   logoutUser,
   currentUser,
+  updateUserSub,
 } from "#controllers/users/index.js";
 import { authMiddleware } from "#middleware/authMiddleware.js";
 
@@ -14,5 +15,6 @@ router.post("/signup", registerUser);
 router.post("/login", loginUser);
 router.get("/logout", authMiddleware, logoutUser);
 router.get("/current", authMiddleware, currentUser);
+router.patch("/subscription", authMiddleware, updateUserSub);
 
 export { router as usersRouter };
