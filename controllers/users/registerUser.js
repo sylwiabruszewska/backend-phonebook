@@ -1,5 +1,6 @@
 import User from "#models/user.js";
 import { userSchema, validateData } from "#validators/index.js";
+import gravatar from "gravatar";
 
 export const registerUser = async (req, res, next) => {
   try {
@@ -25,6 +26,7 @@ export const registerUser = async (req, res, next) => {
 
     const newUser = new User({ email });
     const { subscription } = newUser;
+    const avatarURL = gravatar.url(email, { s: "250", d: "identicon" });
 
     await newUser.setPassword(password);
     await newUser.save();
@@ -32,7 +34,7 @@ export const registerUser = async (req, res, next) => {
     return res.status(201).json({
       status: "Created",
       code: 201,
-      data: { email, subscription },
+      data: { email, subscription, avatarURL },
     });
   } catch (error) {
     next(error);
