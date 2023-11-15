@@ -27,6 +27,7 @@ export const registerUser = async (req, res, next) => {
     const newUser = new User({ email });
     const { subscription } = newUser;
     const avatarURL = gravatar.url(email, { s: "250", d: "identicon" });
+    newUser.avatarURL = avatarURL;
 
     await newUser.setPassword(password);
     await newUser.save();

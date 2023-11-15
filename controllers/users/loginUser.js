@@ -20,11 +20,8 @@ export const loginUser = async (req, res, next) => {
     const { email, password } = value;
 
     const user = await User.findOne({ email });
-    const { id, subscription } = user;
 
-    const isPasswordValid = await user.validPassword(password);
-
-    if (!user || !isPasswordValid) {
+    if (!user) {
       return res.status(401).json({
         status: "Unauthorized",
         code: 401,
@@ -32,6 +29,17 @@ export const loginUser = async (req, res, next) => {
       });
     }
 
+    const isPasswordValid = await user.validPassword(password);
+
+    if (!isPasswordValid) {
+      return res.status(401).json({
+        status: "Unauthorized",
+        code: 401,
+        message: "Email or password is wrong",
+      });
+    }
+
+    const { id, subscription, avatarURL } = user;
     const token = jwt.sign({ id }, secret, { expiresIn: "12h" });
 
     user.token = token;
@@ -45,6 +53,7 @@ export const loginUser = async (req, res, next) => {
         user: {
           email: email,
           subscription: subscription,
+          avatarURL: avatarURL,
         },
       },
     });

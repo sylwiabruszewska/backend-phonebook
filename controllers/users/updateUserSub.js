@@ -18,11 +18,13 @@ export const updateUserSub = async (req, res, next) => {
 
     const { subscription } = value;
 
-    const { email } = await User.findByIdAndUpdate(user.id, { subscription });
+    const { email, avatarURL } = await User.findByIdAndUpdate(user.id, {
+      subscription,
+    });
     return res.status(201).json({
       status: "Success",
       code: 200,
-      data: { email, subscription },
+      data: { email, subscription, avatarURL },
     });
   } catch (error) {
     next(error);
