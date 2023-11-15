@@ -3,5 +3,7 @@ export const notFoundHandler = (req, res) => {
 };
 
 export const internalErrorHandler = (err, req, res, next) => {
-  res.status(500).json({ message: err.message });
+  res
+    .status(err.status || 500)
+    .json({ message: err.message, status: err.status });
 };
