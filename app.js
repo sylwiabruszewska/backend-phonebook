@@ -20,6 +20,8 @@ corsHandler(app);
 bodyParserHandler(app);
 passportHandler(app);
 
+app.use(express.static("public"));
+
 app.use("/api", apiRouter);
 
 app.use(notFoundHandler);
