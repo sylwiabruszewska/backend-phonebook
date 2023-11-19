@@ -69,7 +69,8 @@ Register a new user.
 }
 ```
 
-- **Response status:**
+**Response status:**
+
 - 201 Created - Registration success response
 - 409 Conflict - Registration conflict error - "Email in use"
 - 400 Bad Request - Registration validation error
@@ -91,10 +92,11 @@ Log in an existing user.
 }
 ```
 
-- **Response status:**
-  200 OK - Login success response
-  400 Bad Request - Login validation error
-  401 Unauthorized - Login auth error
+**Response status:**
+
+- 200 OK - Login success response
+- 400 Bad Request - Login validation error
+- 401 Unauthorized - Login auth error
 
 #### 3. User log out
 
@@ -103,7 +105,9 @@ Log out a user.
 - **Path:** `/api/users/logout`
 - **Method:** GET
 - **Authorization:** "Bearer {{token}}"
-- **Response status:**
+
+**Response status:**
+
 - 204 No Content - Logout success response
 - 401 Unauthorized - Logout unauthorized error
 
@@ -114,7 +118,9 @@ Get info about existing user.
 - **Path:** `/api/users/current`
 - **Method:** GET
 - **Authorization:** "Bearer {{token}}"
-- **Response status:**
+
+**Response status:**
+
 - 200 OK - Current user success response
 - 401 Unauthorized - Current user unauthorized error
 
@@ -135,7 +141,8 @@ Update user subscription type.
 }
 ```
 
-- **Response status:**
+**Response status:**
+
 - 200 OK - Update subscription success response
 - 401 Unauthorized - Update subscription unauthorized error
 
@@ -148,7 +155,9 @@ Update user avatar.
 - **Authorization:** "Bearer {{token}}"
 - **Content-Type:** multipart/form-data
 - **Request Body:** JSON with user data
-- **Response status:**
+
+**Response status:**
+
 - 200 OK - Update avatar success response
 - 401 Unauthorized - Update avatar unauthorized error
 
@@ -160,7 +169,9 @@ Get a list of all contacts in the address book.
 
 - **Path:** `/api/contacts`
 - **Method:** GET
-- **Response status:**
+
+**Response status:**
+
 - 200 OK
 - 401 Unauthorized
 - 404 Not Found
@@ -206,7 +217,9 @@ Get details of a specific contact based on its ID.
 - **Path:** `/api/contacts/:contactId`
 - **Method:** GET
 - **URL Parameters:** `contactId - Contact ID`
-- **Response status:**
+
+**Response status:**
+
 - 200 OK
 - 401 Unauthorized
 - 404 Not Found
@@ -229,7 +242,9 @@ Add a new contact to the address book.
 - **Path:** `/api/contacts/`
 - **Method:** POST
 - **Request Body:** JSON with new contact data
-- **Response status:**
+
+**Response status:**
+
 - 201 Created
 - 401 Unauthorized
 - 400 Bad Request - message "missing required field"
@@ -252,7 +267,9 @@ Update the data of a specific contact based on its ID.
 - **Method:** GET
 - **URL Parameters:** `contactId - Contact ID`
 - **Request Body:** JSON with updated contact data
-- **Response status:**
+
+**Response status:**
+
 - 200 OK
 - 401 Unauthorized
 - 404 Not Found
@@ -264,7 +281,9 @@ Delete a specific contact based on its ID.
 - **Path:** `/api/contacts/:contactId`
 - **Method:** DELETE
 - **URL Parameters:** `contactId - Contact ID`
-- **Response status:**
+
+**Response status:**
+
 - 200 OK
 - 401 Unauthorized
 - 404 Not Found
@@ -285,7 +304,8 @@ Update contact status as favorite.
 }
 ```
 
-- **Response status:**
+**Response status:**
+
 - 200 OK
 - 401 Unauthorized
 - 404 Not Found
