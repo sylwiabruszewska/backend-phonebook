@@ -1,22 +1,22 @@
 import Contact from "#models/contact.js";
+import { contactSchema, validateData } from "#validators/index.js";
 
 export const putContact = async (req, res, next) => {
+  const { params, body } = req;
+  const { contactId } = params;
+
+  if (Object.keys(req.body).length === 0) {
+    return res.status(400).json({
+      message: "missing fields",
+    });
+  }
+
   try {
-    const { params, body } = req;
-    const { contactId } = params;
+    const { isValid, errorMessage } = validateData(contactSchema, req.body);
 
-    if (Object.keys(req.body).length === 0) {
-      res.status(400).json({
-        message: "missing fields",
-      });
-      return;
-    }
-
-    const { error } = Contact.validate(req.body);
-
-    if (error) {
+    if (!isValid) {
       return res.status(400).json({
-        message: error.details[0].message,
+        message: errorMessage,
       });
     }
 

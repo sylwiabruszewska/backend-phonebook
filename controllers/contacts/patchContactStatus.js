@@ -6,10 +6,9 @@ export const patchContactStatus = async (req, res, next) => {
     const { favorite } = req.body;
 
     if (!favorite) {
-      res.status(400).json({
+      return res.status(400).json({
         message: "missing field favorite",
       });
-      return;
     }
 
     const contact = await Contact.findByIdAndUpdate(contactId, { favorite });
