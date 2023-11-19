@@ -56,11 +56,11 @@ To use the "ContactManager" API, follow the instructions below to set up your en
 
 Register a new user.
 
-**Path:** `/api/users/signup`
-**Method:** POST
-**Content-Type:** application/json
-**Request Body:** JSON with new user data
-Example Request Body:
+- **Path:** `/api/users/signup`
+- **Method:** POST
+- **Content-Type:** application/json
+- **Request Body:** JSON with new user data
+  Example Request Body:
 
 ```json
 {
@@ -69,20 +69,20 @@ Example Request Body:
 }
 ```
 
-**Response status:**
-201 Created - Registration success response
-409 Conflict - Registration conflict error - "Email in use"
-400 Bad Request - Registration validation error
+- **Response status:**
+- 201 Created - Registration success response
+- 409 Conflict - Registration conflict error - "Email in use"
+- 400 Bad Request - Registration validation error
 
 #### 2. User log in
 
 Log in an existing user.
 
-**Path:** `/api/users/login`
-**Method:** POST
-**Content-Type:** application/json
-**Request Body:** JSON with user data
-Example Request Body:
+- **Path:** `/api/users/login`
+- **Method:** POST
+- **Content-Type:** application/json
+- **Request Body:** JSON with user data
+  Example Request Body:
 
 ```json
 {
@@ -91,43 +91,43 @@ Example Request Body:
 }
 ```
 
-**Response status:**
-200 OK - Login success response
-400 Bad Request - Login validation error
-401 Unauthorized - Login auth error
+- **Response status:**
+  200 OK - Login success response
+  400 Bad Request - Login validation error
+  401 Unauthorized - Login auth error
 
 #### 3. User log out
 
 Log out a user.
 
-**Path:** `/api/users/logout`
-**Method:** GET
-**Authorization:** "Bearer {{token}}"
-**Response status:**
-204 No Content - Logout success response
-401 Unauthorized - Logout unauthorized error
+- **Path:** `/api/users/logout`
+- **Method:** GET
+- **Authorization:** "Bearer {{token}}"
+- **Response status:**
+- 204 No Content - Logout success response
+- 401 Unauthorized - Logout unauthorized error
 
 #### 4. Get user info
 
 Get info about existing user.
 
-**Path:** `/api/users/current`
-**Method:** GET
-**Authorization:** "Bearer {{token}}"
-**Response status:**
-200 OK - Current user success response
-401 Unauthorized - Current user unauthorized error
+- **Path:** `/api/users/current`
+- **Method:** GET
+- **Authorization:** "Bearer {{token}}"
+- **Response status:**
+- 200 OK - Current user success response
+- 401 Unauthorized - Current user unauthorized error
 
 #### 5. Update subscription
 
 Update user subscription type.
 
-**Path:** `/api/users/subscription`
-**Method:** PATCH
-**Authorization:** "Bearer {{token}}"
-**Content-Type:** application/json
-**Request Body:** JSON with user data
-Example Request Body:
+- **Path:** `/api/users/subscription`
+- **Method:** PATCH
+- **Authorization:** "Bearer {{token}}"
+- **Content-Type:** application/json
+- **Request Body:** JSON with user data
+  Example Request Body:
 
 ```json
 {
@@ -135,22 +135,22 @@ Example Request Body:
 }
 ```
 
-**Response status:**
-200 OK - Update subscription success response
-401 Unauthorized - Update subscription unauthorized error
+- **Response status:**
+- 200 OK - Update subscription success response
+- 401 Unauthorized - Update subscription unauthorized error
 
 #### 6. Update avatar
 
 Update user avatar.
 
-**Path:** `/api/users/avatars`
-**Method:** PATCH
-**Authorization:** "Bearer {{token}}"
-**Content-Type:** multipart/form-data
-**Request Body:** JSON with user data
-**Response status:**
-200 OK - Update avatar success response
-401 Unauthorized - Update avatar unauthorized error
+- **Path:** `/api/users/avatars`
+- **Method:** PATCH
+- **Authorization:** "Bearer {{token}}"
+- **Content-Type:** multipart/form-data
+- **Request Body:** JSON with user data
+- **Response status:**
+- 200 OK - Update avatar success response
+- 401 Unauthorized - Update avatar unauthorized error
 
 ### **Contacts endpoints**
 
@@ -158,12 +158,12 @@ Update user avatar.
 
 Get a list of all contacts in the address book.
 
-**Path:** `/api/contacts`
-**Method:** GET
-**Response status:**
-200 OK
-401 Unauthorized
-404 Not Found
+- **Path:** `/api/contacts`
+- **Method:** GET
+- **Response status:**
+- 200 OK
+- 401 Unauthorized
+- 404 Not Found
 
 **Example response:**
 
@@ -190,9 +190,9 @@ The Contacts API offers pagination functionality, enabling the retrieval of cont
 
 ###### Pagination Parameters:
 
-**page:** Represents the page number for the requested contacts (e.g., page=1, page=2).
-**limit:** Indicates the maximum number of contacts to display on a single page (e.g., limit=10, limit=20). Dafault: limit=20
-**Example usage:** `/api/contacts?page=1&limit=10`
+- **page:** Represents the page number for the requested contacts (e.g., page=1, page=2).
+- **limit:** Indicates the maximum number of contacts to display on a single page (e.g., limit=10, limit=20). Dafault: limit=20
+- **Example usage:** `/api/contacts?page=1&limit=10`
 
 ##### Filtering Contacts by Favorites
 
@@ -203,13 +203,13 @@ The Contacts API supports filtering contacts based on their favorite status. By 
 
 Get details of a specific contact based on its ID.
 
-**Path:** `/api/contacts/:contactId`
-**Method:** GET
-**URL Parameters:** `contactId - Contact ID`
-**Response status:**
-200 OK
-401 Unauthorized
-404 Not Found
+- **Path:** `/api/contacts/:contactId`
+- **Method:** GET
+- **URL Parameters:** `contactId - Contact ID`
+- **Response status:**
+- 200 OK
+- 401 Unauthorized
+- 404 Not Found
 
 **Example response:**
 
@@ -226,13 +226,13 @@ Get details of a specific contact based on its ID.
 
 Add a new contact to the address book.
 
-**Path:** `/api/contacts/`
-**Method:** POST
-**Request Body:** JSON with new contact data
-**Response status:**
-201 Created
-401 Unauthorized
-400 Bad Request - message "missing required field"
+- **Path:** `/api/contacts/`
+- **Method:** POST
+- **Request Body:** JSON with new contact data
+- **Response status:**
+- 201 Created
+- 401 Unauthorized
+- 400 Bad Request - message "missing required field"
 
 **Example Request Body:**
 
@@ -248,36 +248,36 @@ Add a new contact to the address book.
 
 Update the data of a specific contact based on its ID.
 
-**Path:** `/api/contacts/:contactId`
-**Method:** GET
-**URL Parameters:** `contactId - Contact ID`
-**Request Body:** JSON with updated contact data
-**Response status:**
-200 OK
-401 Unauthorized
-404 Not Found
+- **Path:** `/api/contacts/:contactId`
+- **Method:** GET
+- **URL Parameters:** `contactId - Contact ID`
+- **Request Body:** JSON with updated contact data
+- **Response status:**
+- 200 OK
+- 401 Unauthorized
+- 404 Not Found
 
 ### 5. Remove Contact
 
 Delete a specific contact based on its ID.
 
-**Path:** `/api/contacts/:contactId`
-**Method:** DELETE
-**URL Parameters:** `contactId - Contact ID`
-**Response status:**
-200 OK
-401 Unauthorized
-404 Not Found
+- **Path:** `/api/contacts/:contactId`
+- **Method:** DELETE
+- **URL Parameters:** `contactId - Contact ID`
+- **Response status:**
+- 200 OK
+- 401 Unauthorized
+- 404 Not Found
 
 ### 6. Update Contact Status
 
 Update contact status as favorite.
 
-**Path:** `/api/contacts/:contactId/favorite`
-**Method:** PATCH
-**URL Parameters:** `contactId - Contact ID`
-**Request Body:** JSON with data
-Example Request Body:
+- **Path:** `/api/contacts/:contactId/favorite`
+- **Method:** PATCH
+- **URL Parameters:** `contactId - Contact ID`
+- **Request Body:** JSON with data
+  Example Request Body:
 
 ```json
 {
@@ -285,7 +285,7 @@ Example Request Body:
 }
 ```
 
-**Response status:**
-200 OK
-401 Unauthorized
-404 Not Found
+- **Response status:**
+- 200 OK
+- 401 Unauthorized
+- 404 Not Found
