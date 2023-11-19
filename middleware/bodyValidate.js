@@ -1,4 +1,4 @@
-import { validateData } from "#validators/validate.js";
+import { validateData } from "#helpers/index.js";
 
 export const bodyValidate = (validator) => {
   return async function (req, res, next) {
