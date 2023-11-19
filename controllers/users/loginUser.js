@@ -20,15 +20,6 @@ export const loginUser = async (req, res, next) => {
     const { email, password } = value;
 
     const user = await User.findOne({ email });
-
-    if (!user) {
-      return res.status(401).json({
-        status: "Unauthorized",
-        code: 401,
-        message: "Email or password is wrong",
-      });
-    }
-
     const isPasswordValid = await user.validPassword(password);
 
     if (!isPasswordValid) {

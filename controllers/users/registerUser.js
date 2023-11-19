@@ -14,7 +14,7 @@ export const registerUser = async (req, res, next) => {
 
     const { email, password } = value;
 
-    const user = await User.findOne({ email }).lean();
+    const user = await User.findOne({ email });
 
     if (user) {
       return res.status(409).json({
@@ -24,7 +24,7 @@ export const registerUser = async (req, res, next) => {
       });
     }
 
-    const newUser = new User({ email });
+    const newUser = await new User({ email });
     const { subscription } = newUser;
     const avatarURL = gravatar.url(email, { s: "250", d: "identicon" });
     newUser.avatarURL = avatarURL;
