@@ -1,18 +1,9 @@
 import User from "#models/user.js";
-import { userSchema, validateData } from "#validators/index.js";
 import gravatar from "gravatar";
 
 export const registerUser = async (req, res, next) => {
   try {
-    const { isValid, errorMessage, value } = validateData(userSchema, req.body);
-
-    if (!isValid) {
-      return res.status(400).json({
-        message: errorMessage,
-      });
-    }
-
-    const { email, password } = value;
+    const { email, password } = req.body;
 
     const user = await User.findOne({ email });
 

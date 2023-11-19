@@ -1,5 +1,4 @@
 import Contact from "#models/contact.js";
-import { contactSchema, validateData } from "#validators/index.js";
 
 export const putContact = async (req, res, next) => {
   const { params, body } = req;
@@ -12,14 +11,6 @@ export const putContact = async (req, res, next) => {
   }
 
   try {
-    const { isValid, errorMessage } = validateData(contactSchema, req.body);
-
-    if (!isValid) {
-      return res.status(400).json({
-        message: errorMessage,
-      });
-    }
-
     await Contact.findByIdAndUpdate(contactId, body);
 
     res.status(200).json({
