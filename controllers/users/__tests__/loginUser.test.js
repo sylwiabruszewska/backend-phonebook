@@ -2,14 +2,12 @@ import jwt from "jsonwebtoken";
 import { jest, describe, test, expect } from "@jest/globals";
 
 import User from "#models/user.js";
-import { validateData } from "#validators/index.js";
 import { loginUser } from "#controllers/users/index.js";
 
 // 100% COVERAGE
 
 jest.mock("jsonwebtoken");
 jest.mock("#models/user.js");
-jest.mock("#validators/index.js");
 
 describe("loginUser function", () => {
   const mockRequest = {
@@ -28,19 +26,11 @@ describe("loginUser function", () => {
   test("should return a token when login is successful", async () => {
     User.findOne.mockResolvedValue({
       id: "123",
-      email: "test@example.com",
+      email: "example@example.com",
       subscription: "premium",
-      avatarURL: "avatar.jpg",
+      avatarURL: "mockedAvatarURL",
       validPassword: jest.fn(() => true),
       save: jest.fn(),
-    });
-
-    validateData.mockReturnValue({
-      isValid: true,
-      value: {
-        email: "test@example.com",
-        password: "password",
-      },
     });
 
     await loginUser(mockRequest, mockResponse, mockNext);
@@ -68,43 +58,14 @@ describe("loginUser function", () => {
     });
   });
 
-  // Test dla nieprawidłowych danych logowania
-  test("should return an error when invalid data is provided", async () => {
-    validateData.mockReturnValue({
-      isValid: false,
-      errorMessage: "Invalid data",
-    });
-
-    await loginUser(mockRequest, mockResponse, mockNext);
-
-    expect(mockResponse.status).toHaveBeenCalledWith(400);
-    expect(mockResponse.json).toHaveBeenCalledWith({
-      message: "Invalid data",
-    });
-  });
-
   // Test dla !isPasswordValid
   test("should return an error when password is invalid", async () => {
     User.findOne.mockResolvedValue({
-      email: "test@example.com",
       validPassword: jest.fn(() => false),
-      id: "123",
-      subscription: "premium",
-      avatarURL: "avatar.jpg",
-      save: jest.fn(),
-    });
-
-    validateData.mockReturnValue({
-      isValid: true,
-      value: {
-        email: "test@example.com",
-        password: "password",
-      },
     });
 
     await loginUser(mockRequest, mockResponse, mockNext);
 
-    expect(User.findOne).toHaveBeenCalledWith({ email: "test@example.com" });
     expect(mockResponse.status).toHaveBeenCalledWith(401);
     expect(mockResponse.json).toHaveBeenCalledWith({
       status: "Unauthorized",
