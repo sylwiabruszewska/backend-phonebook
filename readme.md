@@ -1,6 +1,6 @@
 # Table of Contents
 
-1. [ContactManager API](#-contactmanager-api)
+1. [ContactManager API](#contactmanager-api)
 2. [Getting Started](#getting-started)
 3. [Scripts](#scripts)
 4. [Usage](#usage)
