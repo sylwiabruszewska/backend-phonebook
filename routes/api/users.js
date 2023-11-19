@@ -23,7 +23,7 @@ router.patch(
 router.patch(
   "/avatars",
   authMiddleware,
-  uploadMiddleware.single("avatar"),
+  uploadMiddleware.single("picture"),
   controllers.updateAvatar
 );
 
