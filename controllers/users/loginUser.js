@@ -13,7 +13,15 @@ export const loginUser = async (req, res, next) => {
     const user = await User.findOne({ email });
     const isPasswordValid = await user.validPassword(password);
 
-    if (!isPasswordValid || !user.verify) {
+    if (!user.verify) {
+      return res.status(401).json({
+        status: "Unauthorized",
+        code: 401,
+        message: "Email not verified",
+      });
+    }
+
+    if (!isPasswordValid) {
       return res.status(401).json({
         status: "Unauthorized",
         code: 401,
