@@ -15,10 +15,12 @@ dotenv.config();
 
 const app = express();
 
-passportHandler(app);
 loggerHandler(app);
 corsHandler(app);
 bodyParserHandler(app);
+passportHandler(app);
+
+app.use(express.static("public"));
 
 app.use("/api", apiRouter);
 
