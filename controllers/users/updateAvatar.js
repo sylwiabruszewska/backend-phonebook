@@ -21,7 +21,7 @@ export const updateAvatar = async (req, res, next) => {
     const user = await User.findById(id);
     await User.findByIdAndUpdate(user._id, { avatarURL });
 
-    return res.status(201).json({
+    return res.status(200).json({
       status: "Success",
       code: 200,
       data: { avatarURL },
