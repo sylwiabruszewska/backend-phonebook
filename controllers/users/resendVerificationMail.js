@@ -2,7 +2,7 @@ import User from "#models/user.js";
 import { sendVerificationMail, validateData } from "#helpers/index.js";
 import { userSchema } from "#validators/index.js";
 
-export const verifyUserAgain = async (req, res, next) => {
+export const resendVerificationMail = async (req, res, next) => {
   const { email } = req.body;
 
   if (!email) {
