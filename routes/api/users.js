@@ -6,12 +6,24 @@ import {
   uploadMiddleware,
   bodyValidate,
 } from "#middleware/index.js";
-import { userSchema, subscriptionSchema } from "#validators/index.js";
+import {
+  loginValidationSchema,
+  registerValidationSchema,
+  subscriptionSchema,
+} from "#validators/index.js";
 
 const router = express.Router();
 
-router.post("/signup", bodyValidate(userSchema), controllers.registerUser);
-router.post("/login", bodyValidate(userSchema), controllers.loginUser);
+router.post(
+  "/signup",
+  bodyValidate(registerValidationSchema),
+  controllers.registerUser
+);
+router.post(
+  "/login",
+  bodyValidate(loginValidationSchema),
+  controllers.loginUser
+);
 router.get("/logout", authMiddleware, controllers.logoutUser);
 router.get("/current", authMiddleware, controllers.getCurrentUser);
 router.patch(

@@ -1,6 +1,6 @@
 import User from "#models/user.js";
 import { sendVerificationMail, validateData } from "#helpers/index.js";
-import { userSchema } from "#validators/index.js";
+import { emailValidationSchema } from "#validators/index.js";
 
 export const resendVerificationMail = async (req, res, next) => {
   const { email } = req.body;
@@ -13,7 +13,7 @@ export const resendVerificationMail = async (req, res, next) => {
     });
   }
 
-  await validateData(userSchema, { email });
+  await validateData(emailValidationSchema, { email });
 
   try {
     const user = await User.findOne({ email });
