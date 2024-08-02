@@ -1,29 +1,34 @@
-import sgMail from "@sendgrid/mail";
+import Mailjet from "node-mailjet";
+
+const mailjet = Mailjet.apiConnect(process.env.API_KEY, process.env.API_SECRET);
 
 export const sendVerificationMail = async (userEmail, verificationToken) => {
   const baseURL = process.env.BASE_URL;
   const verificationURL = `${baseURL}/api/users/verify/${verificationToken}`;
 
-  sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-  const msg = {
-    to: userEmail,
-    from: "sylwia.brusze@gmail.com",
-    subject: "Email Verification",
-    text: `Click the following link to verify your email: ${verificationURL}`,
-    html: `<strong>
-  Click the following link to verify your email:
-  <a href="${verificationURL}">
-    ${verificationURL}
-  </a>
-</strong>`,
-  };
+  const request = mailjet.post("send").request({
+    FromEmail: "phonebook.app1@gmail.com",
+    FromName: "PhoneBook",
+    Subject: "PhoneBook - Email Verification",
+    "Html-part": `
+            <div style="font-family: sans-serif; text-align: center; font-size: 16px">
+              <p style="color: #333; font-size: 24px">PhoneBook</p>
 
-  sgMail
-    .send(msg)
-    .then(() => {
-      console.log("Email sent");
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+              <p style="color: #555">Click the following link to verify your email:</p>
+              <p>
+                <a href="${verificationURL}" style="color: #a06cd5; font-size: 18px; text-decoration: none;">
+                ${verificationURL}
+                </a>
+              </p>
+            </div>
+          `,
+    Recipients: [{ Email: userEmail }],
+  });
+
+  try {
+    const response = await request;
+    console.log("Email sent:", response.body);
+  } catch (error) {
+    console.error("Error sending email:", error);
+  }
 };
