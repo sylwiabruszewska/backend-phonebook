@@ -24,7 +24,7 @@ router.post(
   bodyValidate(loginValidationSchema),
   controllers.loginUser
 );
-router.get("/logout", authMiddleware, controllers.logoutUser);
+router.post("/logout", authMiddleware, controllers.logoutUser);
 router.get("/current", authMiddleware, controllers.getCurrentUser);
 router.patch(
   "/subscription",
@@ -38,7 +38,7 @@ router.patch(
   uploadMiddleware.single("picture"),
   controllers.updateAvatar
 );
-router.get("/verify/:verificationToken", controllers.verifyUser);
+router.patch("/verify/:verificationToken", controllers.verifyUser);
 router.post("/verify", controllers.resendVerificationMail);
 
 export { router as usersRouter };
