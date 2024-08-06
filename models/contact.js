@@ -11,6 +11,7 @@ const contactSchema = Schema(
     },
     phone: {
       type: String,
+      required: [true, "Set phone number for contact"],
     },
     favorite: {
       type: Boolean,
