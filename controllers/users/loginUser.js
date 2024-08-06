@@ -41,14 +41,13 @@ export const loginUser = async (req, res, next) => {
     const { id, name, subscription, avatarURL } = user;
     const token = jwt.sign({ id }, secret, { expiresIn: "12h" });
 
-    // Update the user's token directly in the database
     await User.findByIdAndUpdate(user.id, { token });
 
     return res.status(200).json({
       status: "OK",
       code: 200,
+      token: token,
       data: {
-        token: token,
         user: {
           name: name,
           email: email,
