@@ -1,9 +1,16 @@
 export const getCurrentUser = async (req, res) => {
   const { name, email, subscription, avatarURL } = req.user;
 
-  res.json({
-    status: "Success",
+  res.status(200).json({
+    status: "OK",
     code: 200,
-    data: { name, email, subscription, avatarURL },
+    data: {
+      user: {
+        name,
+        email,
+        subscription,
+        avatarURL,
+      },
+    },
   });
 };
