@@ -1,11 +1,22 @@
 import Contact from "#models/contact.js";
 
 export const postContact = async (req, res, next) => {
+  const { name, email, phone, favorite } = req.body;
+  const userId = req.user.id;
+
   try {
-    const newContact = await Contact.create(req.body);
+    const newContact = new Contact({
+      name,
+      email,
+      phone,
+      favorite,
+      owner: userId,
+    });
+
+    const savedContact = await newContact.save();
 
     res.status(201).json({
-      data: newContact,
+      data: savedContact,
     });
   } catch (error) {
     res.status(400).json({
