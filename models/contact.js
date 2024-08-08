@@ -25,6 +25,8 @@ const contactSchema = Schema(
   { versionKey: false, timestamps: false }
 );
 
+contactSchema.index({ name: "text" });
+
 const Contact = model("contact", contactSchema);
 
 export default Contact;
