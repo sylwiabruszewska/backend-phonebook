@@ -21,6 +21,7 @@ const contactSchema = Schema(
       type: Schema.Types.ObjectId,
       ref: "user",
     },
+    createdAt: { type: Date, default: Date.now },
   },
   { versionKey: false, timestamps: false }
 );
