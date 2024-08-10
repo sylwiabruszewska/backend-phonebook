@@ -9,8 +9,7 @@
      2. [User Log In](#2-user-log-in)
      3. [User Log Out](#3-user-log-out)
      4. [Get User Info](#4-get-user-info)
-     5. [Update Subscription](#5-update-subscription)
-     6. [Update Avatar](#6-update-avatar)
+     5. [Update Avatar](#6-update-avatar)
    - [Contacts endpoints](#contacts-endpoints)
      1. [List Contacts](#1-list-contacts)
      2. [Get Contact by ID](#2-get-contact-by-id)
@@ -21,7 +20,7 @@
 
 # ContactManager API
 
-The "ContactManager" project is a basic Node.js-based API service designed for contact management. It allows users to create accounts and perform operations on contacts stored in an address book. This API offers endpoints for signing in, logging in & out, updating avatar or subscription type as well as listing contacts, retrieving specific contacts, adding new contacts, updating existing contact and removing contact. Additionally, it implements user authentication and authorized access, ensuring secure interaction and restricting certain functions to authorized users.
+The "ContactManager" project is a basic Node.js-based API service designed for contact management. It allows users to create accounts and perform operations on contacts stored in an address book. This API offers endpoints for signing in, logging in & out, updating avatar as well as listing contacts, retrieving specific contacts, adding new contacts, updating existing contact and removing contact. Additionally, it implements user authentication and authorized access, ensuring secure interaction and restricting certain functions to authorized users.
 
 ## Getting Started
 
@@ -123,28 +122,6 @@ Get info about existing user.
 
 - 200 OK - Current user success response
 - 401 Unauthorized - Current user unauthorized error
-
-#### 5. Update subscription
-
-Update user subscription type.
-
-- **Path:** `/api/users/subscription`
-- **Method:** PATCH
-- **Authorization:** "Bearer {{token}}"
-- **Content-Type:** application/json
-- **Request Body:** JSON with user data
-  Example Request Body:
-
-```json
-{
-  "subscription": "pro"
-}
-```
-
-**Response status:**
-
-- 200 OK - Update subscription success response
-- 401 Unauthorized - Update subscription unauthorized error
 
 #### 6. Update avatar
 

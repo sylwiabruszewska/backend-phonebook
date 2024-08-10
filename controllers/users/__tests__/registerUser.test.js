@@ -14,7 +14,6 @@ describe("registerUser function", () => {
     body: {
       email: "example@example.com",
       password: "examplePassword",
-      subscription: "starter",
     },
   };
   const mockResponse = {
@@ -29,7 +28,6 @@ describe("registerUser function", () => {
     gravatar.url.mockReturnValue("mockedAvatarURL");
 
     User.mockResolvedValue({
-      subscription: "starter",
       setPassword: jest.fn(),
       save: jest.fn(),
     });
@@ -42,7 +40,6 @@ describe("registerUser function", () => {
       code: 201,
       data: {
         email: "example@example.com",
-        subscription: "starter",
         avatarURL: "mockedAvatarURL",
       },
     });

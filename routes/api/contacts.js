@@ -2,7 +2,10 @@ import express from "express";
 
 import * as controllers from "#controllers/contacts/index.js";
 import { authMiddleware, bodyValidate } from "#middleware/index.js";
-import { contactSchema } from "#validators/contactSchema.js";
+import {
+  contactValidationSchema,
+  editContactValidationSchema,
+} from "#validators/contactSchema.js";
 
 const router = express.Router();
 
@@ -11,15 +14,15 @@ router.get("/:contactId", authMiddleware, controllers.getContactById);
 router.post(
   "/",
   authMiddleware,
-  bodyValidate(contactSchema),
+  bodyValidate(contactValidationSchema),
   controllers.postContact
 );
 router.delete("/:contactId", authMiddleware, controllers.deleteContact);
-router.put(
+router.patch(
   "/:contactId",
-  bodyValidate(contactSchema),
+  bodyValidate(editContactValidationSchema),
   authMiddleware,
-  controllers.putContact
+  controllers.patchContact
 );
 router.patch(
   "/:contactId/favorite",

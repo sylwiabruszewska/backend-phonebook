@@ -1,15 +1,23 @@
 import Contact from "#models/contact.js";
 
 export const getContacts = async (req, res, next) => {
-  const { page = 1, limit = 20, favorite } = req.query;
+  const { page = 1, limit = 10, favorite, query = "" } = req.query;
   const startIndex = (page - 1) * limit;
+  const userId = req.user.id;
 
   try {
-    const setFavorite = favorite ? { favorite: true } : {};
+    const filter = {
+      owner: userId,
+      ...(favorite ? { favorite: true } : {}),
+      ...(query ? { name: { $regex: query, $options: "i" } } : {}),
+    };
 
     const [contacts, totalContacts] = await Promise.all([
-      Contact.find(setFavorite).skip(startIndex).limit(limit),
-      Contact.countDocuments(setFavorite),
+      Contact.find(filter)
+        .sort({ createdAt: -1 })
+        .skip(startIndex)
+        .limit(limit),
+      Contact.countDocuments(filter),
     ]);
 
     const totalPages = Math.ceil(totalContacts / limit);

@@ -27,7 +27,6 @@ describe("loginUser function", () => {
     User.findOne.mockResolvedValue({
       id: "123",
       email: "example@example.com",
-      subscription: "premium",
       avatarURL: "mockedAvatarURL",
       validPassword: jest.fn(() => true),
       save: jest.fn(),
@@ -51,7 +50,6 @@ describe("loginUser function", () => {
         token,
         user: {
           email: expect.any(String),
-          subscription: expect.any(String),
           avatarURL: expect.any(String),
         },
       },

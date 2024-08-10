@@ -4,9 +4,12 @@ export const verifyUser = async (req, res, next) => {
   const verificationToken = req.params.verificationToken;
 
   try {
-    const user = await User.findOne(
+    const user = await User.findOneAndUpdate(
       { verificationToken },
-      { verificationToken: 1 }
+      {
+        verificationToken: " ",
+        verify: true,
+      }
     );
 
     if (!user) {
@@ -17,11 +20,7 @@ export const verifyUser = async (req, res, next) => {
       });
     }
 
-    user.verificationToken = " ";
-    user.verify = true;
-    await user.save();
-
-    return res.status(201).json({
+    return res.status(200).json({
       status: "Success",
       code: 200,
       message: "Verification successful",

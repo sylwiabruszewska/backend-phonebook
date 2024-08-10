@@ -1,17 +1,15 @@
-import User from "#models/user.js";
+export const getCurrentUser = async (req, res) => {
+  const { name, email } = req.user;
 
-export const getCurrentUser = async (req, res, next) => {
-  const user = req.user;
-
-  try {
-    const currentUser = await User.findById(user.id);
-
-    res.json({
-      email: user.email,
-      subscription: currentUser.subscription,
-      avatarURL: currentUser.avatarURL,
-    });
-  } catch (error) {
-    next(error);
-  }
+  res.status(200).json({
+    status: "OK",
+    code: 200,
+    data: {
+      user: {
+        name,
+        email,
+        avatarURL,
+      },
+    },
+  });
 };

@@ -11,6 +11,7 @@ const contactSchema = Schema(
     },
     phone: {
       type: String,
+      required: [true, "Set phone number for contact"],
     },
     favorite: {
       type: Boolean,
@@ -20,9 +21,12 @@ const contactSchema = Schema(
       type: Schema.Types.ObjectId,
       ref: "user",
     },
+    createdAt: { type: Date, default: Date.now },
   },
   { versionKey: false, timestamps: false }
 );
+
+contactSchema.index({ name: "text" });
 
 const Contact = model("contact", contactSchema);
 
