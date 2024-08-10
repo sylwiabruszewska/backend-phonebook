@@ -38,7 +38,7 @@ export const loginUser = async (req, res, next) => {
       });
     }
 
-    const { id, name, subscription, avatarURL } = user;
+    const { id, name, avatarURL } = user;
     const token = jwt.sign({ id }, secret, { expiresIn: "12h" });
 
     await User.findByIdAndUpdate(user.id, { token });
@@ -51,7 +51,6 @@ export const loginUser = async (req, res, next) => {
         user: {
           name: name,
           email: email,
-          subscription: subscription,
           avatarURL: avatarURL,
         },
       },

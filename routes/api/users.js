@@ -9,7 +9,6 @@ import {
 import {
   loginValidationSchema,
   registerValidationSchema,
-  subscriptionSchema,
 } from "#validators/index.js";
 
 const router = express.Router();
@@ -26,12 +25,6 @@ router.post(
 );
 router.post("/logout", authMiddleware, controllers.logoutUser);
 router.get("/current", authMiddleware, controllers.getCurrentUser);
-router.patch(
-  "/subscription",
-  bodyValidate(subscriptionSchema),
-  authMiddleware,
-  controllers.updateUserSub
-);
 router.patch(
   "/avatars",
   authMiddleware,

@@ -20,7 +20,6 @@ export const registerUser = async (req, res, next) => {
     const verificationToken = uuidv4();
 
     const newUser = await new User({ name, email, verificationToken });
-    const { subscription } = newUser;
     const avatarURL = gravatar.url(email, { s: "250", d: "identicon" });
     newUser.avatarURL = avatarURL;
 
@@ -32,7 +31,7 @@ export const registerUser = async (req, res, next) => {
     return res.status(201).json({
       status: "Created",
       code: 201,
-      data: { name, email, subscription, avatarURL, verificationToken },
+      data: { name, email, verificationToken, avatarURL },
     });
   } catch (error) {
     next(error);

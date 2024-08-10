@@ -373,12 +373,6 @@
                         "email": {
                           "type": "string",
                           "example": "john.doe@email.com"
-                        },
-                        "subscription": {
-                          "type": "string",
-                          "enum": ["starter", "pro", "business"],
-                          "example": "starter",
-                          "default": "starter"
                         }
                       }
                     }
@@ -437,12 +431,6 @@
                         "email": {
                           "type": "string",
                           "example": "john.doe@email.com"
-                        },
-                        "subscription": {
-                          "type": "string",
-                          "enum": ["starter", "pro", "business"],
-                          "example": "starter",
-                          "default": "starter"
                         }
                       }
                     }
@@ -494,67 +482,10 @@
                         "email": {
                           "type": "string",
                           "example": "john.doe@email.com"
-                        },
-                        "subscription": {
-                          "type": "string",
-                          "enum": ["starter", "pro", "business"],
-                          "example": "starter",
-                          "default": "starter"
                         }
                       }
                     }
                   }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/users/subscription": {
-      "patch": {
-        "tags": ["Users"],
-        "summary": "Update user subscription type",
-        "operationId": "updateUserSub",
-        "security": [
-          {
-            "jwt": ["write"]
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "subscription": {
-                    "type": "string",
-                    "enum": ["starter", "pro", "business"],
-                    "example": "starter",
-                    "default": "starter"
-                  }
-                }
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Success"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
                 }
               }
             }
@@ -735,12 +666,6 @@
           "password": {
             "type": "string",
             "example": "password123"
-          },
-          "subscription": {
-            "type": "string",
-            "enum": ["starter", "pro", "business"],
-            "example": "starter",
-            "default": "starter"
           },
           "avatarURL": {
             "type": "string",
