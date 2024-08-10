@@ -5,22 +5,28 @@ export const patchContactStatus = async (req, res, next) => {
     const { contactId } = req.params;
     const { favorite } = req.body;
 
-    if (!favorite) {
+    if (typeof favorite !== "boolean") {
       return res.status(400).json({
-        message: "missing field favorite",
+        message: "Field 'favorite' must be a boolean",
       });
     }
 
-    const contact = await Contact.findByIdAndUpdate(contactId, { favorite });
+    const contact = await Contact.findByIdAndUpdate(
+      contactId,
+      { favorite },
+      { new: true }
+    );
 
-    contact.favorite = favorite;
+    if (!contact) {
+      return res.status(404).json({
+        message: "Contact not found",
+      });
+    }
 
     res.status(200).json({
       data: contact,
     });
   } catch (error) {
-    res.status(404).json({
-      message: error.message,
-    });
+    next(error);
   }
 };
