@@ -5,7 +5,7 @@ const corsOrigin = process.env.CORS_ORIGIN || process.env.CORS_ORIGIN_LOCAL;
 export const corsHandler = (app) => {
   app.use(
     cors({
-      origin: corsOrigin,
+      origin: "*",
       credentials: true,
       methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
       allowedHeaders: ["Authorization", "Content-Type"],
