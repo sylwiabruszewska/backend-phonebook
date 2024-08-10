@@ -1,7 +1,7 @@
 import Contact from "#models/contact.js";
 
 export const getContacts = async (req, res, next) => {
-  const { page = 1, limit = 5, favorite, query = "" } = req.query;
+  const { page = 1, limit = 10, favorite, query = "" } = req.query;
   const startIndex = (page - 1) * limit;
   const userId = req.user.id;
 
@@ -13,7 +13,10 @@ export const getContacts = async (req, res, next) => {
     };
 
     const [contacts, totalContacts] = await Promise.all([
-      Contact.find(filter).skip(startIndex).limit(limit),
+      Contact.find(filter)
+        .sort({ createdAt: -1 })
+        .skip(startIndex)
+        .limit(limit),
       Contact.countDocuments(filter),
     ]);
 
