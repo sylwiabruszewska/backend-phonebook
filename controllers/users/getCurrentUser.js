@@ -8,7 +8,6 @@ export const getCurrentUser = async (req, res) => {
       user: {
         name,
         email,
-        avatarURL,
       },
     },
   });
