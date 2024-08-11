@@ -17,7 +17,7 @@ export const sendVerificationMail = async (userEmail, verificationToken) => {
               <p style="color: #555">Click the following link to verify your email:</p>
               <p>
                 <a href="${verificationURL}" style="color: #a06cd5; font-size: 18px; text-decoration: none;">
-                ${verificationURL}
+                Activate your account
                 </a>
               </p>
             </div>
