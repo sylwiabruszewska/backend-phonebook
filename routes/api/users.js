@@ -31,7 +31,7 @@ router.patch(
   uploadMiddleware.single("picture"),
   controllers.updateAvatar
 );
-router.patch("/verify/:verificationToken", controllers.verifyUser);
+router.get("/verify/:verificationToken", controllers.verifyUser);
 router.post("/verify", controllers.resendVerificationMail);
 
 export { router as usersRouter };
