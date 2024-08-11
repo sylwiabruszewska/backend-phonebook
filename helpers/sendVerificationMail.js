@@ -4,7 +4,7 @@ const mailjet = Mailjet.apiConnect(process.env.API_KEY, process.env.API_SECRET);
 
 export const sendVerificationMail = async (userEmail, verificationToken) => {
   const baseURL = process.env.BASE_URL;
-  const verificationURL = `${baseURL}/api/users/verify/${verificationToken}`;
+  const verificationURL = `${baseURL}/verify/${verificationToken}`;
 
   const request = mailjet.post("send").request({
     FromEmail: "phonebook.app1@gmail.com",
