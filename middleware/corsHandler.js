@@ -1,11 +1,11 @@
 import cors from "cors";
 
-const corsOrigin = process.env.CORS_ORIGIN || process.env.CORS_ORIGIN_LOCAL;
-
 export const corsHandler = (app) => {
   app.use(
     cors({
-      origin: "*",
+      origin: function (origin, callback) {
+        callback(null, origin || "*");
+      },
       credentials: true,
       methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
       allowedHeaders: ["Authorization", "Content-Type"],
