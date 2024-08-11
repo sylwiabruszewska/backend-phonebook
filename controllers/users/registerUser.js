@@ -11,12 +11,21 @@ export const registerUser = async (req, res, next) => {
     const user = await User.findOne({ email });
 
     if (user) {
+      if (!user.verify) {
+        return res.status(409).json({
+          status: "Conflict",
+          code: 409,
+          message:
+            "Email is already registered but not verified. Please verify your email.",
+        });
+      }
       return res.status(409).json({
         status: "Conflict",
         code: 409,
-        message: "Email in use",
+        message: "Email is already in use",
       });
     }
+
     const verificationToken = uuidv4();
 
     const newUser = await new User({ name, email, verificationToken });
