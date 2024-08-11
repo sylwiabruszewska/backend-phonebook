@@ -1,13 +1,13 @@
 import Joi from "joi";
 
 export const contactValidationSchema = Joi.object({
-  name: Joi.string().required(),
-  email: Joi.string().email(),
-  phone: Joi.string().required(),
+  name: Joi.string().max(40).required(),
+  email: Joi.string().email().max(40),
+  phone: Joi.string().max(40).required(),
 });
 
 export const editContactValidationSchema = Joi.object({
-  name: Joi.string(),
-  email: Joi.string().email(),
-  phone: Joi.string(),
+  name: Joi.string().max(40),
+  email: Joi.string().email().max(40),
+  phone: Joi.string().max(40),
 });
