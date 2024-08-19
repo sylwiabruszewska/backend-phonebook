@@ -1,14 +1,21 @@
-import Contact from "#models/contact.js";
+import { Response, NextFunction } from "express";
+import Contact from "@/models/contact";
+import { AuthenticatedRequest, PatchContactStatusBody } from "@/types/custom";
 
-export const patchContactStatus = async (req, res, next) => {
+export const patchContactStatus = async (
+  req: AuthenticatedRequest,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   try {
     const { contactId } = req.params;
-    const { favorite } = req.body;
+    const { favorite } = req.body as PatchContactStatusBody;
 
     if (typeof favorite !== "boolean") {
-      return res.status(400).json({
+      res.status(400).json({
         message: "Field 'favorite' must be a boolean",
       });
+      return;
     }
 
     const contact = await Contact.findByIdAndUpdate(
@@ -18,9 +25,10 @@ export const patchContactStatus = async (req, res, next) => {
     );
 
     if (!contact) {
-      return res.status(404).json({
+      res.status(404).json({
         message: "Contact not found",
       });
+      return;
     }
 
     res.status(200).json({
