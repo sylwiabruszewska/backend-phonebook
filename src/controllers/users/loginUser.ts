@@ -1,49 +1,57 @@
 import jwt from "jsonwebtoken";
 import { config } from "dotenv";
+import { Request, Response, NextFunction } from "express";
 
-import User from "#models/user.js";
+import { User } from "@/models/user";
 
 config();
 const secret = process.env.SECRET;
 
-export const loginUser = async (req, res, next) => {
+export const loginUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   try {
     const { email, password } = req.body;
 
     const user = await User.findOne({ email });
 
     if (!user) {
-      return res.status(401).json({
+      res.status(401).json({
         status: "Unauthorized",
         code: 401,
         message: "Email or password is wrong",
       });
+      return;
     }
 
     const isPasswordValid = await user.validPassword(password);
 
     if (!user.verify) {
-      return res.status(401).json({
+      res.status(401).json({
         status: "Unauthorized",
         code: 401,
         message: "Email not verified",
       });
+      return;
     }
 
     if (!isPasswordValid) {
-      return res.status(401).json({
+      res.status(401).json({
         status: "Unauthorized",
         code: 401,
         message: "Email or password is wrong",
       });
+      return;
     }
 
-    const { id, name, avatarURL } = user;
-    const token = jwt.sign({ id }, secret, { expiresIn: "12h" });
+    const { id, name } = user;
+    const token = jwt.sign({ id }, secret as string, { expiresIn: "12h" });
 
     await User.findByIdAndUpdate(user.id, { token });
 
-    return res.status(200).json({
+    res.status(200).json({
       status: "OK",
       code: 200,
       token: token,
@@ -51,7 +59,6 @@ export const loginUser = async (req, res, next) => {
         user: {
           name: name,
           email: email,
-          avatarURL: avatarURL,
         },
       },
     });

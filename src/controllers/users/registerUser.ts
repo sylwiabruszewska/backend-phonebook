@@ -1,10 +1,14 @@
-import gravatar from "gravatar";
 import { v4 as uuidv4 } from "uuid";
+import { Request, Response, NextFunction } from "express";
 
-import User from "#models/user.js";
-import { sendVerificationMail } from "#helpers/index.js";
+import { User } from "@/models/user";
+import { sendVerificationMail } from "@/helpers/sendVerificationMail";
 
-export const registerUser = async (req, res, next) => {
+export const registerUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   try {
     const { name, email, password } = req.body;
 
@@ -12,14 +16,14 @@ export const registerUser = async (req, res, next) => {
 
     if (user) {
       if (!user.verify) {
-        return res.status(409).json({
+        res.status(409).json({
           status: "Conflict",
           code: 409,
           message:
             "Email is already registered but not verified. Please verify your email.",
         });
       }
-      return res.status(409).json({
+      res.status(409).json({
         status: "Conflict",
         code: 409,
         message: "Email is already in use",
@@ -28,19 +32,17 @@ export const registerUser = async (req, res, next) => {
 
     const verificationToken = uuidv4();
 
-    const newUser = await new User({ name, email, verificationToken });
-    const avatarURL = gravatar.url(email, { s: "250", d: "identicon" });
-    newUser.avatarURL = avatarURL;
+    const newUser = new User({ name, email, verificationToken });
 
     await newUser.setPassword(password);
     await newUser.save();
 
-    await sendVerificationMail(email, verificationToken);
+    await sendVerificationMail({ userEmail: email, verificationToken });
 
-    return res.status(201).json({
+    res.status(201).json({
       status: "Created",
       code: 201,
-      data: { name, email, verificationToken, avatarURL },
+      data: { name, email, verificationToken },
     });
   } catch (error) {
     next(error);

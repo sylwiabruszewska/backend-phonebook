@@ -1,6 +1,11 @@
-import User from "#models/user.js";
+import { Request, Response, NextFunction } from "express";
+import { User } from "@/models/user";
 
-export const verifyUser = async (req, res, next) => {
+export const verifyUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
   const verificationToken = req.params.verificationToken;
 
   try {
@@ -13,14 +18,14 @@ export const verifyUser = async (req, res, next) => {
     );
 
     if (!user) {
-      return res.status(404).json({
+      res.status(404).json({
         status: "Not Found",
         code: 404,
         message: "User not found",
       });
     }
 
-    return res.status(200).json({
+    res.status(200).json({
       status: "Success",
       code: 200,
       message: "Verification successful",
