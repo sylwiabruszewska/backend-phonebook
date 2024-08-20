@@ -1,6 +1,6 @@
 import express from "express";
-import { contactsRouter } from "./contacts.js";
-import { usersRouter } from "./users.js";
+import { contactsRouter } from "./contacts";
+import { usersRouter } from "./users";
 
 const apiRouter = express.Router();
 

@@ -1,11 +1,11 @@
 import express from "express";
 
-import * as controllers from "#controllers/contacts/index.js";
-import { authMiddleware, bodyValidate } from "#middleware/index.js";
-import {
-  contactValidationSchema,
-  editContactValidationSchema,
-} from "#validators/contactSchema.js";
+import * as controllers from "@/controllers/contacts/index";
+
+import { authMiddleware } from "@/middleware/authMiddleware";
+import { bodyValidate } from "@/middleware/bodyValidate";
+import { contactValidationSchema } from "@/validators/contactSchema";
+import { editContactValidationSchema } from "@/validators/contactSchema";
 
 const router = express.Router();
 
