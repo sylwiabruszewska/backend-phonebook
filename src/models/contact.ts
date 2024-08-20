@@ -1,6 +1,15 @@
-import { model, Schema } from "mongoose";
+import { Document, model, Schema, Model } from "mongoose";
 
-const contactSchema = Schema(
+interface IContact extends Document {
+  name: string;
+  email?: string;
+  phone: string;
+  favorite?: boolean;
+  owner?: Schema.Types.ObjectId;
+  createdAt: Date;
+}
+
+const contactSchema = new Schema<IContact>(
   {
     name: {
       type: String,
@@ -28,6 +37,6 @@ const contactSchema = Schema(
 
 contactSchema.index({ name: "text" });
 
-const Contact = model("contact", contactSchema);
+const Contact: Model<IContact> = model<IContact>("contact", contactSchema);
 
 export default Contact;
