@@ -1,8 +1,17 @@
-export const validateData = (schema, data) => {
+import { Schema } from "joi";
+
+interface ValidationResult {
+  isValid: boolean;
+  value?: any;
+  errorMessage?: string;
+  invalidParam?: string;
+}
+
+export const validateData = (schema: Schema, data: any): ValidationResult => {
   const { value, error } = schema.validate(data);
 
   if (error) {
-    const invalidParam = error.details[0].path;
+    const invalidParam = error.details[0].path.join(".");
 
     if (error.details[0].type === "any.required") {
       return {

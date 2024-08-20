@@ -1,8 +1,15 @@
 import Mailjet from "node-mailjet";
+import { SendVerificationMailProps } from "@/types/custom";
 
-const mailjet = Mailjet.apiConnect(process.env.API_KEY, process.env.API_SECRET);
+const mailjet = Mailjet.apiConnect(
+  process.env.API_KEY as string,
+  process.env.API_SECRET as string
+);
 
-export const sendVerificationMail = async (userEmail, verificationToken) => {
+export const sendVerificationMail = async ({
+  userEmail,
+  verificationToken,
+}: SendVerificationMailProps): Promise<void> => {
   const baseURL = process.env.BASE_URL;
   const verificationURL = `${baseURL}/verify/${verificationToken}`;
 
