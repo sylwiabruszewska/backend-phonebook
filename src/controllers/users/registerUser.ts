@@ -22,12 +22,14 @@ export const registerUser = async (
           message:
             "Email is already registered but not verified. Please verify your email.",
         });
+        return;
       }
       res.status(409).json({
         status: "Conflict",
         code: 409,
         message: "Email is already in use",
       });
+      return;
     }
 
     const verificationToken = uuidv4();

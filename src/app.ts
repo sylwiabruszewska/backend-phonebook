@@ -24,7 +24,7 @@ passportHandler(app);
 app.use("/api", apiRouter);
 app.use("/doc", serve, setup(swaggerDoc));
 
-app.use(notFoundHandler);
 app.use(internalErrorHandler);
+app.use(notFoundHandler);
 
 export { app };
