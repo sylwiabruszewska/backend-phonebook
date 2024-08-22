@@ -9,7 +9,7 @@
      2. [User Log In](#2-user-log-in)
      3. [User Log Out](#3-user-log-out)
      4. [Get User Info](#4-get-user-info)
-     5. [Update Avatar](#6-update-avatar)
+     5. [Verify User](#5-verify-user)
    - [Contacts endpoints](#contacts-endpoints)
      1. [List Contacts](#1-list-contacts)
      2. [Get Contact by ID](#2-get-contact-by-id)
@@ -20,7 +20,8 @@
 
 # ContactManager API
 
-The "ContactManager" project is a basic Node.js-based API service designed for contact management. It allows users to create accounts and perform operations on contacts stored in an address book. This API offers endpoints for signing in, logging in & out, updating avatar as well as listing contacts, retrieving specific contacts, adding new contacts, updating existing contact and removing contact. Additionally, it implements user authentication and authorized access, ensuring secure interaction and restricting certain functions to authorized users.
+The "ContactManager" project is a basic Node.js-based API service designed for contact management. It allows users to create accounts and perform operations on contacts stored in an address book. This API offers endpoints for signing in, logging in & out and listing, retrieving specific contacts, adding new contacts, removing or updating existing one. Additionally, it implements user authentication and authorized access, ensuring secure interaction and restricting certain functions to authorized users.
+The project has been refactored from JavaScript to TypeScript and adapted to integrate seamlessly with the frontend developed earlier during the programming course. This refactoring enhances type safety, improves code maintainability, and ensures better alignment with modern TypeScript practices.
 
 ## Getting Started
 
@@ -38,14 +39,20 @@ To use the "ContactManager" API, follow the instructions below to set up your en
 3. Update `.env` file in the root directory with the variables set:
    - `DB_HOST`: Your MongoDB database connection URL
    - `SECRET`: Secret key used for encrypting sensitive information
+   - `BASE_URL`: The URL of your frontend application
+   - `API_KEY`: The API key provided by Mailjet
+   - `API_SECRET`: The API secret provided by Mailjet
+   - `CORS_ORIGIN`: A comma-separated list of allowed domains that are permitted to make requests to your backend
 
 ## Scripts
 
 - `npm start`: Launches the application in production mode, allowing you to manage contacts using the command-line interface.
-- `npm run start:dev`: Launches the application in development mode using the `nodemon` tool, which enables automatic reloading of the application when changes are made in the code.
-- `npm run lint` — runs code checking with ESLint.
-- `npm lint:fix` — same as the above, but it also automatically fixes simple errors.
-- `npm test` — runs unit tests with JEST for register new user and log in.
+- `npm run start:dev`: Launches the application in development mode.
+
+## Build the Project
+
+1. Run `npm run build` to transpile the TypeScript code into JavaScript. This will generate the compiled files in the dist directory.
+2. Add Module Aliases: Ensure that you include `require("module-alias/register");` at the very beginning of your entry point file server.js in the dist directory. This step is crucial for resolving module aliases defined in your tsconfig.json during runtime.
 
 ## Usage
 
@@ -63,6 +70,7 @@ Register a new user.
 
 ```json
 {
+  "name": "exampleName",
   "email": "example@example.com",
   "password": "examplePassword"
 }
@@ -123,20 +131,17 @@ Get info about existing user.
 - 200 OK - Current user success response
 - 401 Unauthorized - Current user unauthorized error
 
-#### 6. Update avatar
+#### 5. Verify user
 
-Update user avatar.
+Verify user
 
-- **Path:** `/api/users/avatars`
-- **Method:** PATCH
-- **Authorization:** "Bearer {{token}}"
-- **Content-Type:** multipart/form-data
-- **Request Body:** JSON with user data
+- **Path:** `/api/users/verify/:verificationToken`
+- **Method:** GET
 
 **Response status:**
 
-- 200 OK - Update avatar success response
-- 401 Unauthorized - Update avatar unauthorized error
+- 200 OK - Current user success response
+- 404 Not Found
 
 ### **Contacts endpoints**
 
@@ -158,16 +163,20 @@ Get a list of all contacts in the address book.
 ```json
 [
   {
-    "id": "AeHIrLTr6JkxGE6SN-0Rw",
+    "_id": "AeHIrLTr6JkxGE6SN-0Rw",
     "name": "Allen Raymond",
-    "email": "nulla.ante@vestibul.co.uk",
-    "phone": "(992) 914-3792"
+    "phone": "(992) 914-3792",
+    "favorite": false,
+    "owner": "66ae0243b7b0fafebe26c9fb",
+    "createdAt": "2024-08-11T15:37:47.213Z"
   },
   {
-    "id": "qdggE76Jtbfd9eWJHrssH",
+    "_id": "qdggE76Jtbfd9eWJHrssH",
     "name": "Chaim Lewis",
-    "email": "dui.in@egetlacus.ca",
-    "phone": "(294) 840-6685"
+    "phone": "(294) 840-6685",
+    "favorite": true,
+    "owner": "66ae0243b7b0fafebe26c9fb",
+    "createdAt": "2024-08-11T15:37:47.213Z"
   }
 ]
 ```
@@ -187,6 +196,11 @@ The Contacts API offers pagination functionality, enabling the retrieval of cont
 The Contacts API supports filtering contacts based on their favorite status. By appending favorite=true to the API endpoint, you can retrieve contacts marked as favorites.
 **Usage:** `/api/contacts?favorite=true`
 
+##### Filtering Contacts by query
+
+The Contacts API supports filtering contacts by query.
+**Usage:** `/api/contacts?query=example`
+
 ### 2. Get Contact by ID
 
 Get details of a specific contact based on its ID.
@@ -205,10 +219,12 @@ Get details of a specific contact based on its ID.
 
 ```json
 {
-  "id": "05olLMgyVQdWRwgKfg5J6",
-  "name": "Cyrus Jackson",
-  "email": "nibh@semsempererat.com",
-  "phone": "(501) 472-5218"
+  "_id": "qdggE76Jtbfd9eWJHrssH",
+  "name": "Chaim Lewis",
+  "phone": "(294) 840-6685",
+  "favorite": true,
+  "owner": "66ae0243b7b0fafebe26c9fb",
+  "createdAt": "2024-08-11T15:37:47.213Z"
 }
 ```
 
@@ -230,9 +246,12 @@ Add a new contact to the address book.
 
 ```json
 {
-  "name": "Sylwia",
-  "email": "sylwia@example.pl",
-  "phone": "657356849"
+  "_id": "qdggE76Jtbfd9eWJHrssH",
+  "name": "Chaim Lewis",
+  "phone": "(294) 840-6685",
+  "favorite": true,
+  "owner": "66ae0243b7b0fafebe26c9fb",
+  "createdAt": "2024-08-11T15:37:47.213Z"
 }
 ```
 
@@ -273,13 +292,6 @@ Update contact status as favorite.
 - **Method:** PATCH
 - **URL Parameters:** `contactId - Contact ID`
 - **Request Body:** JSON with data
-  Example Request Body:
-
-```json
-{
-  "favorite": true
-}
-```
 
 **Response status:**
 
