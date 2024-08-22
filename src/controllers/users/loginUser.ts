@@ -21,7 +21,7 @@ export const loginUser = async (
       res.status(401).json({
         status: "Unauthorized",
         code: 401,
-        message: "Email or password is wrong",
+        message: "Invalid email or password",
       });
       return;
     }
@@ -29,9 +29,9 @@ export const loginUser = async (
     const isPasswordValid = await user.validPassword(password);
 
     if (!user.verify) {
-      res.status(401).json({
-        status: "Unauthorized",
-        code: 401,
+      res.status(403).json({
+        status: "Forbidden",
+        code: 403,
         message: "Email not verified",
       });
       return;
@@ -41,7 +41,7 @@ export const loginUser = async (
       res.status(401).json({
         status: "Unauthorized",
         code: 401,
-        message: "Email or password is wrong",
+        message: "Invalid email or password",
       });
       return;
     }
