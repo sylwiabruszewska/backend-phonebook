@@ -486,18 +486,9 @@
                         },
                         "verificationToken": {
                           "type": "string"
-                        },
-                        "avatarURL": {
-                          "type": "string",
-                          "format": "uri"
                         }
                       },
-                      "required": [
-                        "name",
-                        "email",
-                        "verificationToken",
-                        "avatarURL"
-                      ]
+                      "required": ["name", "email", "verificationToken"]
                     }
                   },
                   "required": ["status", "code", "data"]
@@ -572,13 +563,9 @@
                             "email": {
                               "type": "string",
                               "format": "email"
-                            },
-                            "avatarURL": {
-                              "type": "string",
-                              "format": "uri"
                             }
                           },
-                          "required": ["name", "email", "avatarURL"]
+                          "required": ["name", "email"]
                         }
                       },
                       "required": ["user"]
@@ -638,13 +625,9 @@
                             "email": {
                               "type": "string",
                               "format": "email"
-                            },
-                            "avatarURL": {
-                              "type": "string",
-                              "format": "uri"
                             }
                           },
-                          "required": ["name", "email", "avatarURL"]
+                          "required": ["name", "email"]
                         }
                       },
                       "required": ["user"]
@@ -702,76 +685,6 @@
                       "example": "User not found"
                     }
                   }
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/Error"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/users/avatars": {
-      "patch": {
-        "tags": ["Users"],
-        "summary": "Upload user avatar picture to server",
-        "operationId": "updateAvatar",
-        "security": [
-          {
-            "jwt": ["read", "write"]
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "multipart/form-data": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "picture": {
-                    "type": "string",
-                    "format": "binary"
-                  }
-                },
-                "required": ["picture"]
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "object",
-                  "properties": {
-                    "status": {
-                      "type": "string"
-                    },
-                    "code": {
-                      "type": "integer"
-                    },
-                    "data": {
-                      "type": "object",
-                      "properties": {
-                        "avatarURL": {
-                          "type": "string",
-                          "format": "uri"
-                        }
-                      },
-                      "required": ["avatarURL"]
-                    }
-                  },
-                  "required": ["status", "code", "data"]
                 }
               }
             }
@@ -956,11 +869,6 @@
           "password": {
             "type": "string",
             "example": "password123"
-          },
-          "avatarURL": {
-            "type": "string",
-            "example": "path/to/avatar.jpg",
-            "nullable": true
           },
           "token": {
             "type": "string",
