@@ -1,6 +1,10 @@
 import mongoose from "mongoose";
 
-const { DB_HOST: uriDb } = process.env;
+const uriDb = process.env.DB_HOST as string;
+
+if (!uriDb) {
+  throw new Error("Database connection string (DB_HOST) is not defined");
+}
 
 const connection = mongoose.connect(uriDb);
 
