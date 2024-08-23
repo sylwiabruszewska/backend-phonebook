@@ -6,7 +6,7 @@ export const getCurrentUser = async (
   res: Response,
   next: NextFunction
 ): Promise<void> => {
-  const { name, email } = req.user;
+  const { name, email } = req.user!;
 
   res.status(200).json({
     status: "OK",

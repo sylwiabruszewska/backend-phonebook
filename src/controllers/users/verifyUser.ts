@@ -23,6 +23,7 @@ export const verifyUser = async (
         code: 404,
         message: "User not found",
       });
+      return;
     }
 
     res.status(200).json({

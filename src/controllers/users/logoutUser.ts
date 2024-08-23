@@ -8,9 +8,9 @@ export const logoutUser = async (
   next: NextFunction
 ): Promise<void> => {
   try {
-    const result = await User.findByIdAndUpdate(req.user?.id, { token: null });
+    const user = await User.findByIdAndUpdate(req.user?.id, { token: null });
 
-    if (!result) {
+    if (!user) {
       res.status(404).json({
         status: "Not Found",
         code: 404,
